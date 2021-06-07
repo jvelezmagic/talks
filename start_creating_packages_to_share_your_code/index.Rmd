@@ -1,0 +1,729 @@
+---
+title: "Start creating packages to share your code"
+subtitle: "Believe it or not, you already know how"
+author: "Jesús Vélez Santiago"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    seal: false 
+    lib_dir: libs
+    nature:
+      highlightStyle: dracula
+      highlightLanguage: ["r", "css", "yaml"]
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  fig.path = "figs/",
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE,
+  fig.retina = 3,
+  fig.asp = .5,
+  out.width = '100%',
+  comment = "#>"
+)
+
+#xaringanExtra::use_animate_all("fade")
+xaringanExtra::use_panelset()
+xaringanExtra::use_tachyons()
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\"></i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
+    error_text = "<i class=\"fa fa-times-circle\" style=\"color: #F94144\"></i>"
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,         #<<
+  mute_unhighlighted_code = TRUE  #<<
+)
+library(icons)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(
+  base_color = "#43418A",
+  inverse_link_color = "white",
+  header_font_google = google_font("Josefin Sans"),
+  text_font_google   = google_font("Montserrat", "300", "300i"),
+  code_font_google   = google_font("Fira Mono")
+)
+```
+
+class: title-slide, left, bottom, inverse
+background-image: url("images/calm.jpeg")
+background-position: right
+background-size: cover
+
+
+.pull-left[
+
+# `r rmarkdown::metadata$title`
+
+## `r rmarkdown::metadata$subtitle`
+
+### `r rmarkdown::metadata$author`
+
+[`r icon_style(fontawesome("twitter"), fill="#ffffff")` @jvelezmagic](https://twitter.com/jvelezmagic)  
+[`r icon_style(fontawesome("github"), fill = "#ffffff")` @jvelezmagic](https://github.com/jvelezmagic)  
+[`r icon_style(fontawesome("link"), fill = "#ffffff")` jvelezmagic.com](https://jvelezmagic.com/)  
+[`r icon_style(fontawesome("binoculars"), fill = "#ffffff")` Slides](https://github.com/jvelezmagic/talks/)
+]
+
+---
+
+layout: true
+
+## Do you recognize the following pattern?
+
+---
+
+.pull-left[
+```
+├── data/
+├── reports/
+├── scripts/
+  └── good-stuff-here.R
+└── your.awesome.analysis.Rproj
+```
+]
+
+---
+
+.pull-left[
+```
+├── data/
+├── reports/
+*├── R/
+  └── good-stuff-here.R
+└── your.awesome.analysis.Rproj
+```
+]
+
+.pull-right[
+### Minor changes! 😋
+- Instead of `scripts` use `R`.
+]
+
+---
+
+.pull-left[
+```
+*├── data/
+├── reports/
+├── R/
+  └── good-stuff-here.R
+└── your.awesome.analysis.Rproj
+```
+]
+
+.pull-right[
+### Minor changes! 😋
+- Instead of `scripts` use `R`.
+- `data` can remain unchanged!
+]
+
+---
+
+.pull-left[
+```
+├── data/
+*├── vignettes/
+├── R/
+  └── good-stuff-here.R
+└── your.awesome.analysis.Rproj
+```
+]
+
+.pull-right[
+### Minor changes! 😋
+- Instead of `scripts` use `R`.
+- `data` can remain unchanged!
+- Now `reports` are called `vignettes`.
+]
+
+---
+
+.pull-left[
+```
+├── data/ 
+├── vignettes/ 
+├── R/
+  └── good-stuff-here.R
+*├── man/
+*├── tests/
+*├── DESCRIPTION
+*├── NAMESPACE
+└── your.awesome.analysis.Rproj
+```
+]
+
+.pull-right[
+### Minor changes! 😋
+- Instead of `scripts` use `R`.
+- `data` can remain unchanged!
+- Now `reports` are called `vignettes`.
+
+### New changes, but not from other world! 🤯
+
+- `man`: Represents the full package's documentation!
+- `tests`: Automated code to test package functionality.
+- `DESCRIPTION`: This is where all the meta-data about your package goes!
+- `NAMESPACE`: Indicates what need to be exposed to users of your package.
+]
+
+---
+
+.pull-left[
+```
+├── data/ 
+├── vignettes/ 
+├── R/
+  └── good-stuff-here.R
+├── man/
+├── tests/
+├── DESCRIPTION
+├── NAMESPACE
+*└── your.awesome.package.Rproj
+```
+
+You will probably want to change the name of your project! ✨
+]
+
+.pull-right[
+### Minor changes! 😋
+- Instead of `scripts` use `R`.
+- `data` can remain unchanged!
+- Now `reports` are called `vignettes`.
+
+### New changes, but not from other world! 🤯
+
+- `man`: Represents the full package's documentation!
+- `tests`: Automated code to test package functionality.
+- `DESCRIPTION`: This is where all the meta-data about your package goes!
+- `NAMESPACE`: Indicates what need to be exposed to users of your package.
+]
+
+---
+
+.pull-left[
+```
+├── data/ 
+├── vignettes/ 
+├── R/
+  └── good-stuff-here.R
+├── man/
+├── tests/
+├── DESCRIPTION
+├── NAMESPACE
+└── your.awesome.package.Rproj
+```
+
+You will probably want to change the name of your project! ✨
+
+![](https://media.giphy.com/media/1ym5LJ17vp77BL8X5O/giphy.gif)
+]
+
+.pull-right[
+### Minor changes! 😋
+- Instead of `scripts` use `R`.
+- `data` can remain unchanged!
+- Now `reports` are called `vignettes`.
+
+### New changes, but not from other world! 🤯
+
+- `man`: Represents the full package's documentation!
+- `tests`: Automated code to test package functionality.
+- `DESCRIPTION`: This is where all the meta-data about your package goes!
+- `NAMESPACE`: Indicates what need to be exposed to users of your package.
+]
+
+---
+layout: false
+class: center, inverse, middle
+
+## "But wait... Should I manually do this every time?"
+
+--
+
+### You're right! You don't! 🥳✨✨
+
+![](https://media.giphy.com/media/o75ajIFH0QnQC3nCeD/giphy.gif)
+---
+
+## [`usethis`](https://usethis.r-lib.org/) the blessing behind it all! 😇
+
+--
+
+.panelset[
+.panel[
+.panel-name[Default]
+```{r create_package, eval=FALSE, echo=TRUE}
+usethis::create_package("your.awesome.package")
+```
+
+```r
+#> ✓ Creating 'your.awesome.project/'
+#> ✓ Setting active project to '/private/var/folders/bt/17212s6j0xxfjty0f77xmfq00000gn/T/awesome.project'
+#> ✓ Creating 'R/'
+#> ✓ Writing 'DESCRIPTION'
+#> Package: your.awesome.project
+#> Title: What the Package Does (One Line, Title Case)
+#> Version: 0.0.0.9000
+#> Authors@R (parsed):
+#>     * First Last <first.last@example.com> [aut, cre] (YOUR-ORCID-ID)
+#> Description: What the package does (one paragraph).
+#> License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+#>     license
+#> Encoding: UTF-8
+#> LazyData: true
+#> Roxygen: list(markdown = TRUE)
+#> RoxygenNote: 7.1.1
+#> ✓ Writing 'NAMESPACE'
+#> ✓ Setting active project to '<no active project>'
+```
+]
+.panel[
+.panel-name[Tidyverse-like]
+
+`usethis::create_tidy_package()` creates a new package, immediately applies
+as many of the tidyverse conventions as possible, issues a few reminders,
+and activates the new package. 🤗
+
+```{r create_tidy_package, eval=FALSE, echo=TRUE}
+usethis::create_tidy_package("your.awesome.package")
+```
+
+What is actually running?
+- `usethis::use_testthat()`
+- `usethis::use_mit_license(copyright_holder)`
+- `usethis::use_tidy_description()`
+- `usethis::use_readme_rmd(open = FALSE)`
+- `usethis::use_lifecycle_badge("experimental")`
+- `usethis::use_cran_badge()`
+- `usethis::use_cran_comments(open = FALSE)`
+- `usethis::use_tidy_release_test_env()`
+- `usethis::use_tidy_github()`
+
+]
+.panel[
+.panel-name[Bioconductor]
+
+If you want to develop packages for Bioconductor, you must take an eye
+to [`biocthis`](https://lcolladotor.github.io/biocthis/)
+package developed by [@lcolladotor](https://twitter.com/lcolladotor).
+
+Since the Bioconductor standards are strongly linked with Tidyverse,
+I suggest you first create a tidy package and follow the
+[@lcolladotor](https://twitter.com/lcolladotor) instructions.
+In this way, you must be covered by both parties.
+I assure you that this will make your development more fast and optimal. 🥰
+
+```{r create_bioconductor_package, eval=FALSE, echo=TRUE}
+usethis::create_tidy_package("your.awesome.package")
+```
+
+```{r create_bioconductor_package2, eval=FALSE, echo=TRUE}
+biocthis::use_bioc_pkg_templates()
+```
+
+```r
+#> ✔ Creating 'dev/'
+#> ✔ Adding '^dev$' to '.Rbuildignore'
+#> ✔ Writing 'dev/01_create_pkg.R'
+#> ✔ Writing 'dev/02_git_github_setup.R'
+#> ✔ Writing 'dev/03_core_files.R'
+#> ✔ Writing 'dev/04_update.R'
+```
+]
+]
+
+---
+
+class: title-slide, left, top, inverse
+background-image: url(images/postcard.jpeg)
+background-size: 100%
+
+## "And what about the code? Should I rewrite all my code? 🥺👉👈"
+
+--
+
+### Dont't worry, you're almost there!  😋
+
+--
+
+#### In fact, you've been doing it all this time,  
+#### but you hadn't realized it! 🥳
+
+--
+
+.pull-right[
+
+> ### "One often meets his destiny on the road he takes to avoid it."
+>
+> #### [Oogway](https://en.wikipedia.org/wiki/Kung_Fu_Panda)
+
+]
+
+---
+
+layout: true
+
+## Transforming your code!
+
+---
+
+--
+
+.pull-left[
+```r
+library(dplyr)
+
+iris %>% 
+  group_by(Species) %>% 
+  summarise(
+    mean_sepal_length = mean(Sepal.Length),
+    mean_sepal_Width = mean(Sepal.Width)
+  )
+```
+]
+
+.pull-right[
+### Steps! 😋
+1. Create a new `R` file with `usethis::use_r("good-stuff-here")`.
+]
+
+---
+
+.pull-left[
+```r
+library(dplyr)
+
+*summarise_iris <- function() {
+  iris %>% 
+    group_by(Species) %>% 
+    summarise(
+      mean_sepal_length = mean(Sepal.Length), #<<
+      mean_sepal_Width = mean(Sepal.Width)
+    )
+*}
+```
+]
+
+.pull-right[
+### Steps! 😋
+1. Create a new `R` file with `usethis::use_r("good-stuff-here")`.
+2. Wrap your code inside a `function`.
+]
+
+---
+
+.pull-left[
+```r
+*# library(dplyr)
+
+summarise_iris <- function() {
+  iris %>% 
+*    dplyr::group_by(Species) %>%
+*    dplyr::summarise(
+      mean_sepal_length = mean(Sepal.Length), #<<
+      mean_sepal_Width = mean(Sepal.Width)
+    )
+}
+```
+]
+
+.pull-right[
+### Steps! 😋
+1. Create a new `R` file with `usethis::use_r("good-stuff-here")`.
+2. Wrap your code inside a `function`.
+3. Declare your dependencies with `usethis::use_package("dplyr")`. Then, use
+  `package::function()` notation.
+]
+
+---
+
+.pull-left[
+```r
+# library(dplyr)
+
+*summarise_data <- function(.data, ..., vars) {
+*  .data %>% 
+*    dplyr::group_by(...) %>% 
+    dplyr::summarise(
+*      dplyr::across({{ vars }}, mean)
+    )
+*}
+```
+]
+
+.pull-right[
+### Steps! 😋
+1. Create a new `R` file with `usethis::use_r("good-stuff-here")`.
+2. Wrap your code inside a `function`.
+3. Declare your dependencies with `usethis::use_package("dplyr")`. Then, use
+  `package::function()` notation.
+4. If possible and convenient for you, try to `generalize` the function.
+]
+
+---
+
+.pull-left[
+```r
+# library(dplyr)
+
+summarise_data <- function(.data, ..., vars) {
+  .data %>% 
+    dplyr::group_by(...) %>% 
+    dplyr::summarise(
+      dplyr::across({{ vars }}, mean)
+    )
+}
+```
+
+```r
+test_that("multiplication works", {
+*  expect_equal(2 * 2, 4)
+})
+```
+]
+
+.pull-right[
+### Steps! 😋
+1. Create a new `R` file with `usethis::use_r("good-stuff-here")`.
+2. Wrap your code inside a `function`.
+3. Declare your dependencies with `usethis::use_package("dplyr")`. Then, use
+  `package::function()` notation.
+4. If possible and convenient for you, try to `generalize` the function.
+5. Write a test with `usethis::use_test("good-stuff-here")`
+]
+
+---
+
+.pull-left[
+```r
+# library(dplyr)
+
+summarise_data <- function(.data, ..., vars) {
+  .data %>% 
+    dplyr::group_by(...) %>% 
+    dplyr::summarise(
+      dplyr::across({{ vars }}, mean)
+    )
+}
+```
+
+```r
+test_that("multiplication works", {
+  expect_equal(2 * 2, 4)
+})
+```
+![](https://media.giphy.com/media/5Ivz8uxHriaAw/giphy.gif)
+]
+
+.pull-right[
+### Steps! 😋
+1. Create a new `R` file with `usethis::use_r("good-stuff-here")`.
+2. Wrap your code inside a `function`.
+3. Declare your dependencies with `usethis::use_package("dplyr")`. Then, use
+  `package::function()` notation.
+4. If possible and convenient for you, try to `generalize` the function.
+5. Write a test with `usethis::use_test("good-stuff-here")`
+6. Load your package and repeat the cycle. 👀
+````r
+devtools::load_all() # Cmd/Ctrl + Shift + L
+devtools::test() # Cmd/Ctrl + Shit + T
+devtools::build() # Cmd/Ctrl + Shit + B
+devtools::document()
+```
+]
+
+---
+
+layout: false
+class: title-slide, center, middle
+
+> ## "When writing code, you're always collaborating with future-you; and past-you doesn't respond to emails."
+
+![](https://media.giphy.com/media/2rKDe8JpAEatWVamEe/giphy.gif)
+
+---
+layout: true
+
+background-image: url(images/flower2.jpeg)
+background-position: left
+background-size: 25% 100%
+
+---
+
+.right-column[
+.panelset[
+.panel[
+.panel-name[Project structure]
+### Before
+```
+├── data/
+├── reports/
+├── scripts/
+  └── good-stuff-here.R
+└── your.awesome.analysis.Rproj
+```
+### After
+```
+├── data/ 
+├── vignettes/ 
+├── R/
+  └── good-stuff-here.R
+├── man/
+├── tests/
+├── DESCRIPTION
+├── NAMESPACE
+└── your.awesome.package.Rproj
+```
+]
+.panel[
+.panel-name[R code 1]
+### Before
+```r
+library(dplyr)
+
+iris %>% 
+  group_by(Species) %>% 
+  summarise(
+    mean_sepal_length = mean(Sepal.Length),
+    mean_sepal_Width = mean(Sepal.Width)
+  )
+```
+### After
+```r
+summarise_data <- function(.data, ..., vars) {
+  .data %>% 
+    dplyr::group_by(...) %>% 
+    dplyr::summarise(
+      dplyr::across({{ vars }}, mean)
+    )
+}
+```
+]
+.panel[
+.panel-name[R code 2]
+### Beyond `R code 1`
+Document your code using `roxygen2` and `markdown`.
+```r
+#' Grouped mean
+#'
+#' Calculate the mean per group across multiple varibles.
+#' 
+#' @param .data A tibble.
+#' @param ... Variables to group.
+#' @param vars Variables to summarise.
+#' @export
+summarise_data <- function(.data, ..., vars) {
+  .data %>% 
+    dplyr::group_by(...) %>% 
+    dplyr::summarise(
+      dplyr::across({{ vars }}, mean)
+    )
+}
+```
+]
+.panel[
+.panel-name[Unit tests]
+Create a new test file
+```r
+usethis::use_test("good-stuff-here")
+```
+Write a new test
+```r
+test_that("multiplication works", {
+  expect_equal(2 * 2, 4)
+})
+```
+Run `testthat` test in your package
+```r
+devtools::test()
+```
+```r
+ℹ Loading testing
+ℹ Testing testing
+✓ |  OK F W S | Context
+✓ |   1       | good-stuff-here                                        
+
+══ Results ═════════════════════════════════════════════════
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 1 ]
+```
+]
+.panel[
+.panel-name[DESCRIPTION]
+```r
+*Package: your.awesome.project
+*Title: What the Package Does (One Line, Title Case)
+*Version: 0.0.0.9000
+Authors@R: 
+    person(given = "First",
+           family = "Last",
+           role = c("aut", "cre"),
+           email = "first.last@example.com",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+*Description: What the package does (one paragraph).
+License: MIT + file LICENSE
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Encoding: UTF-8
+LazyData: true
+*Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+*Imports:
+*    dplyr
+```
+
+## Nice, that's a huge progress! 😋
+
+]
+]
+]
+
+---
+layout: false
+class: title-slide, center, middle, inverse
+background-image: url("images/postcard2.jpeg")
+
+## "Yesterday is history. Tomorrow is a mystery. But today is a gift, that is why it's called the present."
+## Oogway
+
+![](https://media.giphy.com/media/HqFTzrX983uJq/giphy.gif)
+
+---
+
+class: title-slide, bottom, left, inverse
+
+.pull-left[
+### Sincere thanks 
+to my advisors in this year of research:
+- Julio Saez-Rodriguez
+- Ricardo Ramirez
+- Christian Holland
+]
+
+
+.pull-right[
+.right[
+<img style="border-radius: 50%;" src="https://github.com/jvelezmagic.png" width="150px"/>
+
+# Thank you!
+
+### Find me at...
+
+[`r icon_style(fontawesome("twitter"), fill="#ffffff")` @jvelezmagic](https://twitter.com/jvelezmagic)  
+[`r icon_style(fontawesome("github"), fill = "#ffffff")` @jvelezmagic](https://github.com/jvelezmagic)  
+[`r icon_style(fontawesome("link"), fill = "#ffffff")` jvelezmagic.com](https://jvelezmagic.com/)  
+]
+]
