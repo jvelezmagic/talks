@@ -350,7 +350,7 @@ class: title-slide, left, top, inverse
 background-image: url(images/postcard.jpeg)
 background-size: 100%
 
-## "And what about the code? Should I rewrite all my code? 😓👉👈"
+## "And what about the code? Should I rewrite all my code? 😅👉👈"
 
 --
 
