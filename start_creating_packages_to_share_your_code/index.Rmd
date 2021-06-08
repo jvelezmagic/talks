@@ -28,9 +28,7 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-#xaringanExtra::use_animate_all("fade")
 xaringanExtra::use_panelset()
-xaringanExtra::use_tachyons()
 htmltools::tagList(
   xaringanExtra::use_clipboard(
     button_text = "<i class=\"fa fa-clipboard\"></i>",
@@ -74,7 +72,7 @@ background-size: cover
 [`r icon_style(fontawesome("twitter"), fill="#ffffff")` @jvelezmagic](https://twitter.com/jvelezmagic)  
 [`r icon_style(fontawesome("github"), fill = "#ffffff")` @jvelezmagic](https://github.com/jvelezmagic)  
 [`r icon_style(fontawesome("link"), fill = "#ffffff")` jvelezmagic.com](https://jvelezmagic.com/)  
-[`r icon_style(fontawesome("binoculars"), fill = "#ffffff")` Slides](https://github.com/jvelezmagic/talks/)
+[`r icon_style(fontawesome("binoculars"), fill = "#ffffff")` Slides code](https://github.com/jvelezmagic/talks/tree/main/start_creating_packages_to_share_your_code)
 ]
 
 ---
