@@ -252,7 +252,7 @@ class: center, inverse, middle
 
 --
 
-### You're right! You don't! 🥳✨✨
+### You're right! You don't! 🎉🎉🎉
 
 ![](https://media.giphy.com/media/o75ajIFH0QnQC3nCeD/giphy.gif)
 ---
@@ -323,7 +323,7 @@ Since the Bioconductor standards are strongly linked with Tidyverse,
 I suggest you first create a tidy package and follow the
 [@lcolladotor](https://twitter.com/lcolladotor) instructions.
 In this way, you must be covered by both parties.
-I assure you that this will make your development more fast and optimal. 🥰
+I assure you that this will make your development more fast and optimal. 💜
 
 ```{r create_bioconductor_package, eval=FALSE, echo=TRUE}
 usethis::create_tidy_package("your.awesome.package")
@@ -350,7 +350,7 @@ class: title-slide, left, top, inverse
 background-image: url(images/postcard.jpeg)
 background-size: 100%
 
-## "And what about the code? Should I rewrite all my code? 🥺👉👈"
+## "And what about the code? Should I rewrite all my code? 😓👉👈"
 
 --
 
@@ -359,7 +359,7 @@ background-size: 100%
 --
 
 #### In fact, you've been doing it all this time,  
-#### but you hadn't realized it! 🥳
+#### but you hadn't realized it! 🎉
 
 --
 
@@ -707,8 +707,8 @@ class: title-slide, bottom, left, inverse
 .pull-left[
 ### Sincere thanks 
 to my advisors in this year of research:
-- Julio Saez-Rodriguez
-- Ricardo Ramirez
+- Julio Saez-Rodríguez
+- Ricardo Ramírez
 - Christian Holland
 ]
 
